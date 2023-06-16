@@ -1,30 +1,27 @@
 from pathlib import Path
-import funcoes_auxiliares as func
+import funcoes_auxiliares_generic as func
 import pandas as pd
 import re
-
-# press Enter to start
-start = str(input('Pressione enter para iniciar'))
 
 # global variables that store file and folder paths
 number_patterns = ['\d\d\d\d\.\d\d\d\d', '\d\d\d\d\-\d\d\d\d',
                       '\d\d\d\d\.\d\d\d', '\d\d\d\d\-\d\d\d', 
                       '\d\d\d\d\.\d\d', '\d\d\d\d\-\d\d']
 
-stage_patterns = ['Pre-Read', 'Pre-Release', 'Release']
+stage_patterns = ['Loren', 'Ipsum', 'Dolor']
 current_path = Path.cwd()
 
 before_general = Path(current_path).parents[5]
-general = before_general / Path('General')
-controls = general / Path('Controles/Planilhas de Controles')
-obsolete = controls / Path('Obsoleto')
-home_folder = general / Path('Operacional/Projetos/2022 CN Bot')
-processed = home_folder / Path('Processed')
-unprocessed = home_folder / Path('Unprocessed')
-exceptions = home_folder / Path('Exceptions')
-archive = home_folder / Path('Archive')
-parameters_file = home_folder / Path('parameters.txt')
-appendix_wb = home_folder / Path('list_appendix_pocket.xlsx')
+general = before_general / Path('Sit')
+controls = general / Path('Amet/Consectetur')
+obsolete = controls / Path('Adipiscing')
+home_folder = general / Path('Elit/Etiam/Eget')
+processed = home_folder / Path('Ligula')
+unprocessed = home_folder / Path('Eu')
+exceptions = home_folder / Path('Lectus')
+archive = home_folder / Path('Lobortis')
+parameters_file = home_folder / Path('Condimentum.txt')
+appendix_wb = home_folder / Path('Aliquam.xlsx')
 
 wb_name = 'TemplateWb'
 wb = func.load_document(home_folder, wb_name, 'xlsx') # load the worksheet
@@ -40,16 +37,16 @@ row = 1
 for file in list(unprocessed.iterdir()): # iterates over the 'unprocessed' list
     if file.suffix != '.docm' and file.suffix != '.docx' and file[:1] != '20':
         file.replace(exceptions / Path(file.name))
-        print('Arquivo não é do formato CN')
+        print('Arquivo não é do formato desejado')
         continue
         
     try:
         print(file.name)
 
         if file.suffix == '.docm': # checks if the file is of type 'docm'
-            crm = True
+            Nonummy = True
         else:
-            crm = False
+            Nonummy = False
 
         count += 1
         row += 1
@@ -57,7 +54,7 @@ for file in list(unprocessed.iterdir()): # iterates over the 'unprocessed' list
         change_subject = file.name
         change_stem = file.stem
         cn_string = func.get_string_from_doc(change_subject, unprocessed)
-        imp_date, imp_match = func.get_implementation_date(cn_string, crm)
+        imp_date, imp_match = func.get_implementation_date(cn_string, Nonummy)
 
         if imp_match:
             imp_comment = ''
@@ -69,18 +66,18 @@ for file in list(unprocessed.iterdir()): # iterates over the 'unprocessed' list
                    func.get_cn_number(change_subject, number_patterns), 
                    func.get_division(change_subject, number_patterns, stage_patterns), 
                    change_stem, 
-                   func.get_reference(cn_string, crm), 
+                   func.get_reference(cn_string, Nonummy), 
                    func.get_stage(change_subject, stage_patterns), 
                    'Active', '',
-                   func.get_product(cn_string, crm), 
-                   func.get_description(cn_string, crm), 
+                   func.get_product(cn_string, Nonummy), 
+                   func.get_description(cn_string, Nonummy), 
                    func.get_receipt_date(change_subject),
                    '', 
                    imp_date[:-4] + imp_date[-2:], 
                    imp_comment[:6] + imp_comment[8:], 
                    '', '', '', 'nan', '', '', '', '', '', '', '', '', '']
 
-        if crm == False:
+        if Nonummy == False:
             itemRegex = re.compile(r'(?<=Appendix\: All Selections).*')
             mo = itemRegex.search(cn_string)
             try:
@@ -121,9 +118,9 @@ for file in list(unprocessed.iterdir()): # iterates over the 'unprocessed' list
 
     except:
         file.replace(exceptions / Path(change_subject))
-        print('Erro não identificado, por favor insira essa CN manualmente')
+        print('Erro não identificado, por favor insira esses dados manualmente')
         pass
 
-wb.save(home_folder / Path('CN_Updated.xlsx')) # update spreadsheet
+wb.save(home_folder / Path('Auctor.xlsx')) # update spreadsheet
 
 end = str(input('Bot executado com sucesso!'))

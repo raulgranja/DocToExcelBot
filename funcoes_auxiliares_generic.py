@@ -184,26 +184,26 @@ def get_division(cn_subject, number_patterns, stage_patterns):
                 continue
             
             
-def get_reference(cn_string, crm=False):
+def get_reference(cn_string, Nonummy=False):
     """
     This function fetches and returns a change reference from a string.
     
     Arguments:
     - cn_string (str): the string on which the search will be performed
-    - crm (bool): if True, searches for a change reference in the CRM format. If False, search in the format of other BUs (default: False)
+    - Nonummy (bool): if True, searches for a change reference in the Nonummy format. If False, search in the format of other BUs (default: False)
     
     Return:
     - The change reference found in the string, 'ERROR' if not found.
     """
     try:
-        if crm is False:
-            start = 'CAF/DCAF/SCIA/PTP ID#'
-            end = 'Implementing Change #'
+        if Nonummy is False:
+            start = 'Massa'
+            end = 'Pellentesque'
             reference = find_between(cn_string, start, end, 2)
             return reference
         else:
-            start = 'CN\/CA \#:'
-            end = '☐ SCIA'
+            start = 'Habitant'
+            end = 'Morbi'
             reference = find_between(cn_string, start, end, 2)
             return reference
         
@@ -224,13 +224,13 @@ def get_stage(cn_subject, stage_patterns):
     return regex_loop(stage_patterns, 3, cn_subject)
 
 
-def get_implementation_date(cn_string, crm=False):
+def get_implementation_date(cn_string, Nonummy=False):
     """
     This function searches and returns the implementation date of a change from a string.
     
     Arguments:
     - cn_string (str): the string on which the search will be performed
-    - crm (bool): if True, searches for the implementation date of a change in the CRM format.
+    - Nonummy (bool): if True, searches for the implementation date of a change in the Nonummy format.
       If False, search in standard format (default: False)
     
     Return:
@@ -242,14 +242,14 @@ def get_implementation_date(cn_string, crm=False):
     pattern3 = '\d\/\d\d\/\d\d\d\d'
     
     try:
-        if crm is False:
-            start = 'Planned Implementing Change Reg Approval Date'
-            end = 'Product Marketing'
+        if Nonummy is False:
+            start = 'Tristique'
+            end = 'Senectus'
             implementation_date = find_between(cn_string, start, end, 2)
             
         else:
-            start = 'Estimated Implementation Date'
-            end = 'Regions and Countries affected by the Change'
+            start = 'Et'
+            end = 'Netus'
             implementation_date = find_between(cn_string[329:], start, end, 2)
     
         date = date_converter(implementation_date)
@@ -276,26 +276,26 @@ def get_receipt_date(cn_subject):
     return date[:6] + '20' + date[6:]  
 
 
-def get_product(cn_string, crm=False):
+def get_product(cn_string, Nonummy=False):
     """
     This function fetches and returns the product name of a change from a string.
     
     Arguments:
     - cn_string (str): the string on which the search will be performed
-    - crm (bool): if True, searches for the product name of a change in CRM format. If False, search in standard format (default: False)
+    - Nonummy (bool): if True, searches for the product name of a change in Nonummy format. If False, search in standard format (default: False)
     
     Return:
     - The product name found in the string, or 'ERROR' if not found.
     """
     try:
-        if crm is False:
-            start = 'Commercial Product Name\(s\):|Commercial Product Name\(s\)'
-            end = 'Representative product end items \(i\.e\. UPN or GTINs\) impacted|Representative product end items \(i\.e\., UPN or GTINs\) impacted'
+        if Nonummy is False:
+            start = 'Malesuada'
+            end = 'Fames'
             product = find_between(cn_string, start, end, 2)
             return product
         else:
-            start = 'Models Affected by the Change'
-            end = 'Change Type Codes'
+            start = 'Ac'
+            end = 'Turpis'
             product = find_between(cn_string[329:], start, end, 2)
             return product
         
@@ -303,26 +303,26 @@ def get_product(cn_string, crm=False):
         return 'ERROR'
     
     
-def get_description(cn_string, crm=False):
+def get_description(cn_string, Nonummy=False):
     """
     This function fetches and returns the description of a change from a string.
     
     Arguments:
     - cn_string (str): the string on which the search will be performed
-    - crm (bool): if True, searches the description of a change in CRM format. If False, search in DCAF format (default: False)
+    - Nonummy (bool): if True, searches the description of a change in Nonummy format. If False, search in DCAF format (default: False)
     
     Return:
     - The description of the change found in the string, or 'ERROR' if not found.
     """
     try:
-        if crm is False:
-            start = 'Summary of Change:|Summary of Change(?! & Assessment)'
-            end = 'Recommended Actions'
+        if Nonummy is False:
+            start = 'Egestas'
+            end = 'Nulla'
             description = find_between(cn_string, start, end, 2)
     
         else:
-            start = 'Summary of Change'
-            end = 'Affected Device Type\(s\) and EU Classification'
+            start = 'Risus'
+            end = 'Quisque'
             description = find_between(cn_string[:], start, end, 2)
 
         return description
