@@ -14,6 +14,12 @@ DocToExcelBot is a powerful tool designed to automate the extraction of data fro
 - Automated insertion of extracted data into an XLSX file.
 - The original folder structure containing the bot has not been uploaded to this repository.
 
+### Bot Files
+
+funcoes_auxiliares_generic.py: This file contains auxiliary functions that will be used by the main bot file. These functions are designed to assist in executing specific tasks and can be called from the main file to facilitate the program's logic.
+
+readAttachments_beta_generic.py: This is the main bot file where the auxiliary functions are utilized. It handles the processing of attachments and incorporates the functionality provided by the auxiliary functions.
+
 ### Usage
 
 This bot has been programmed to meet very specific needs. Therefore, if you intend to use it, please be aware that you do so at your own risk and should expect to make significant modifications to suit your requirements.
